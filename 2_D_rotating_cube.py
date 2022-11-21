@@ -25,14 +25,44 @@ def get_grid(shape:tuple = None) -> np.array:
     return np.zeros(shape)
 
 def display_grid(grid:np.array):
+    """Displays the grid to the terminal
+
+    Parameters
+    ----------
+    grid : np.array
+        A grid (matrix)
+    """
     for row in grid:
         print(*row,'\n')
     
 def translate_element(element:float):
+    """Translates a 1 to the character that defines the lines of
+    the square.
+
+    Parameters
+    ----------
+    element : float
+        Element of the grid. (0 or 1)
+
+    Returns
+    -------
+        Whatever the SIDE_CHARACTER is set to if the element equals 1, else 3 spaces.
+    """
     if element != 0: return SIDE_CHARACTER
-    else: return 3*' ' + 'p' # printing is three times as tall as it is wide
+    else: return 3*' ' # printing is three times as tall as it is wide
 
 def translate_grid(grid:np.array) -> np.array:
+    """Applies translate_element to every element using numpy.
+
+    Parameters
+    ----------
+    grid : np.array
+
+    Returns
+    -------
+    np.array
+        A transformed grid
+    """
     vectorised_grid = np.vectorize(translate_element)
     return vectorised_grid(grid)
 
@@ -50,6 +80,22 @@ def translate_grid(grid:np.array) -> np.array:
 ######################################################
 
 def plot_line(start:np.array,end:np.array,grid:np.array) -> np.array:
+    """Will plot a line using an numpy array as a grid.
+
+    Parameters
+    ----------
+    start : np.array
+        Starting point
+    end : np.array
+        Ending point
+    grid : np.array
+        Grid to draw the line on
+
+    Returns
+    -------
+    np.array
+        The grid with a line plotted on it
+    """
     shape = grid.shape
     x,y = shape
 
