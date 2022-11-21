@@ -48,8 +48,8 @@ def translate_element(element:float):
     -------
         Whatever the SIDE_CHARACTER is set to if the element equals 1, else 3 spaces.
     """
-    if element != 0: return SIDE_CHARACTER
-    else: return 3*' ' # printing is three times as tall as it is wide
+    if element != 0: return SIDE_CHARACTER + 3*' '
+    else: return 4 * ' ' # printing is four times as tall as it is wide
 
 def translate_grid(grid:np.array) -> np.array:
     """Applies translate_element to every element using numpy.
@@ -132,12 +132,19 @@ def plot_line(start:np.array,end:np.array,grid:np.array) -> np.array:
 
 
 if __name__ == "__main__":
-    grid = get_grid((5,5))
+    x,y = (5,5)
+    grid = get_grid((x,y))
 
-    start = np.array([4,4])
-    end = np.array([0,0])
+    vertex1 = np.array([0,0]) # origin co-ordinate
+    vertex2 = np.array([0,y-1]) # top left co-ordinate
+    vertex3 = np.array([x-1,y-1]) # top right component
+    vertex4 = np.array([x-1,0]) # bottom right co-ordinate
 
-    grid = plot_line(start,end,grid)
+
+    grid = plot_line(vertex1,vertex2,grid)
+    grid = plot_line(vertex2,vertex3,grid)
+    grid = plot_line(vertex3,vertex4,grid)
+    grid = plot_line(vertex4,vertex1,grid)
 
     # display_grid(translate_grid(grid))
-    display_grid(grid)
+    display_grid(translate_grid(grid))
