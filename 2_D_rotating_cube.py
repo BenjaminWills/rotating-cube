@@ -162,7 +162,7 @@ def rotate_point(point:np.array,angle:float) -> np.array:
     """
     return np.matmul(rotation_matrix(angle),point)
 
-def rotate_square(angle:float, *vertices:np.array) -> tuple:
+def rotate_square(angle:float, *vertices:np.array) -> list:
     """Will rotate every vertex of a square by some angle
 
     Parameters
@@ -172,14 +172,13 @@ def rotate_square(angle:float, *vertices:np.array) -> tuple:
 
     Returns
     -------
-    tuple
-        a tuple of the rotated vectors
+    list
+        a list of the rotated vectors
     """
     vector_matrix = np.stack(list(vertices),axis = 1)
     rotated_matrix =  rotate_point(vector_matrix,angle)
     transposed_rotated_matrix = rotated_matrix.transpose()
-    v1,v2,v3,v4 = transposed_rotated_matrix
-    return v1,v2,v3,v4
+    return [*transposed_rotated_matrix]
 
 def draw_square(*vertices:np.array,side_length:float) -> np.array:
     """Will return a grid with the specified square on
