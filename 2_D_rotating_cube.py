@@ -57,19 +57,20 @@ def plot_line(start:np.array,end:np.array,grid:np.array) -> np.array:
     x_0,y_0 = start
     x_1,y_1 = end
 
+    if y_0 == y_1: # the case of a horizontal line
+        grid[:][y_0] = 1 
+        return grid
+    if x_0 == x_1: # The case of a vertical line
+        for i in range(y):
+            grid[i][x_0] = 1
+        return grid
+    
     # scale start and end points to be within the unit box
     x_0,x_1 = x_0 * dx, x_1 * dx
     y_0,y_1 = y_0 * dy, y_1 * dy
 
-    if x_0 == x_1: # The case of a vertical line
-        line = lambda x : x_0
-    else:
-        gradient = np.floor((y_0-y_1)/(x_0-x_1))
-        line = lambda x : np.floor(gradient * (x-x_1) + y_1 * dy)
-
-    if y_0 == y_1: # the case of a horizontal line
-        line = lambda x : y_0
-
+    gradient = np.floor((y_0-y_1)/(x_0-x_1))
+    line = lambda x : np.floor(gradient * (x-x_1) + y_1 * dy)
     for i in range(x):
         y_i = line(i * dx)
         if y_i > y:
@@ -80,12 +81,12 @@ def plot_line(start:np.array,end:np.array,grid:np.array) -> np.array:
 
 
 if __name__ == "__main__":
-    # grid = get_grid((5,5))
+    grid = get_grid((5,5))
 
-    # start = np.array([0,0])
-    # end = np.array([0,5])
+    start = np.array([0,0])
+    end = np.array([0,4])
 
-    # grid = plot_line(start,end,grid)
+    grid = plot_line(start,end,grid)
 
     # display_grid(translate_grid(grid))
-    print(scale_axes(0.4,(5,5)))
+    display_grid(grid)
