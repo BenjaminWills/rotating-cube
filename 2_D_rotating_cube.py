@@ -36,16 +36,30 @@ def translate_grid(grid:np.array) -> np.array:
     vectorised_grid = np.vectorize(translate_element)
     return vectorised_grid(grid)
 
+def scale_axes(output:float,grid_shape:tuple) -> int:
+    x,y = grid_shape
+    dy = 1/y
+    points = [dy * i for i in range(y)]
+    for i in range(1,len(points)):
+        if points[i-1] < output <= points[i]:
+            return i
+    return None
+
+
 def plot_line(start:np.array,end:np.array,grid:np.array) -> np.array:
     x,y = grid.shape
 
     dx = 1/x# one step on the x axis
     dy = 1/y # one step on the y axis
 
-    # We essentially want to know the integer points on this curve. is there a way to scale the curve.
+    # We essentially want to know the integer points on this curve. is there a way to scale the curve
     # eq of line: y = mx + c, y-y_1 = m(x-x_1) 
     x_0,y_0 = start
     x_1,y_1 = end
+
+    # scale start and end points to be within the unit box
+    x_0,x_1 = x_0 * dx, x_1 * dx
+    y_0,y_1 = y_0 * dy, y_1 * dy
 
     if x_0 == x_1: # The case of a vertical line
         line = lambda x : x_0
@@ -66,11 +80,12 @@ def plot_line(start:np.array,end:np.array,grid:np.array) -> np.array:
 
 
 if __name__ == "__main__":
-    grid = get_grid((5,5))
+    # grid = get_grid((5,5))
 
-    start = np.array([0,0])
-    end = np.array([0,5])
+    # start = np.array([0,0])
+    # end = np.array([0,5])
 
-    grid = plot_line(start,end,grid)
+    # grid = plot_line(start,end,grid)
 
-    display_grid(translate_grid(grid))
+    # display_grid(translate_grid(grid))
+    print(scale_axes(0.4,(5,5)))
