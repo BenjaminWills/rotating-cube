@@ -119,8 +119,8 @@ def plot_line(start:np.array,end:np.array,grid:np.array) -> np.array:
     x_0,x_1 = x_0 * dx, x_1 * dx
     y_0,y_1 = y_0 * dy, y_1 * dy
 
-    gradient = (y_0-y_1)/(x_0-x_1)
-    line = lambda x : gradient * (x-x_1) + y_1
+    gradient = (y_1-y_0)/(x_1-x_0)
+    line = lambda x : gradient * (x-x_0) + y_0
     for i in range(x):
         line_output = int(line(i))
         y_i = line_output
@@ -181,7 +181,7 @@ def rotate_square(angle:float, *vertices:np.array) -> tuple:
     v1,v2,v3,v4 = transposed_rotated_matrix
     return v1,v2,v3,v4
 
-def draw_square(*vertices:np.array,side_length:int) -> np.array:
+def draw_square(*vertices:np.array,side_length:float) -> np.array:
     """Will return a grid with the specified square on
 
     Parameters
@@ -204,6 +204,11 @@ def draw_square(*vertices:np.array,side_length:int) -> np.array:
     grid = plot_line(vertex4,vertex1,grid)
     return grid
 
+def rotate_grid(angle:float,side_length:float,*vertices:np.array) -> np.array:
+    new_vertices = rotate_square(angle,*vertices)
+    return draw_square(*new_vertices,side_length=side_length)
+
+
 if __name__ == "__main__":
     size = os.get_terminal_size()
     x = int(size.columns/10)
@@ -215,5 +220,5 @@ if __name__ == "__main__":
 
 
     vector_list = [vertex1,vertex2,vertex3,vertex4]
-    grid = draw_square(*vector_list)
-    display_grid(grid)
+    grid = rotate_grid(np.pi/4,x,*vector_list)
+    display_grid(translate_grid(grid))
