@@ -4,11 +4,38 @@
 import numpy as np
 import os
 
-def get_grid():
-    size = os.get_terminal_size()
-    w = size.columns
-    h = size.lines
-    return (w,h)
+SIDE_CHARACTER = '#'
 
+def get_grid(shape:tuple = None) -> np.array:
+    """Returns an array of zeros that are either
+    an inputted shape, or the shape of the terminal.
+
+    Parameters
+    ----------
+    shape : tuple, optional
+        A tuple consisting of a base and height, by default None
+
+    Returns
+    -------
+    np.array
+        A matrix of zeros with the dimensions of shape
+    """
+    if shape is None:
+        shape = os.get_terminal_size()
+    return np.zeros(shape)
+
+def display_grid(grid):
+    for row in grid:
+        print(*row,'\n')
+    
+def translate_element(element:float):
+    if element != 0: return SIDE_CHARACTER
+    else: return ' '
+
+def translate_grid(grid):
+    vectorised_grid = np.vectorize(translate_element)
+    return vectorised_grid(grid)
+    
 if __name__ == "__main__":
-    print(get_grid())
+    grid = get_grid((5,5))
+    display_grid(translate_grid(grid))
