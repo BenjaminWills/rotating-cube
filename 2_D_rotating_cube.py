@@ -130,6 +130,37 @@ def plot_line(start:np.array,end:np.array,grid:np.array) -> np.array:
             grid[i][y_i] = 1
     return grid
 
+def rotation_matrix(angle:float) -> np.array:
+    """Rotates a vector by a angle radians
+
+    Parameters
+    ----------
+    angle : float
+        Number of radians
+
+    Returns
+    -------
+    np.array
+        Rotation matrix for that angle.
+    """
+    cosine = np.cos(angle)
+    sine = np.sin(angle)
+    return np.array([[cosine,sine],[-sine,cosine]])
+
+def rotate_point(point:np.array,angle:float) -> np.array:
+    """Rotates a point by some angle
+
+    Parameters
+    ----------
+    point : np.array
+    angle : float
+
+    Returns
+    -------
+    np.array
+        rotated vector
+    """
+    return rotation_matrix(angle) * point
 
 if __name__ == "__main__":
     x,y = (5,5)
@@ -148,3 +179,5 @@ if __name__ == "__main__":
 
     # display_grid(translate_grid(grid))
     display_grid(translate_grid(grid))
+
+    
