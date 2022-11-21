@@ -160,15 +160,36 @@ def rotate_point(point:np.array,angle:float) -> np.array:
     np.array
         rotated vector
     """
-    return rotation_matrix(angle) * point
+    return np.matmul(rotation_matrix(angle),point)
+
+def rotate_square(angle:float, *vertices) -> tuple:
+    """Will rotate every vertex of a square by some angle
+
+    Parameters
+    ----------
+    angle : float
+        in radians
+
+    Returns
+    -------
+    tuple
+        a tuple of the rotated vectors
+    """
+    vector_matrix = np.stack(list(vertices),axis = 1)
+    rotated_matrix =  rotate_point(vector_matrix,angle)
+    transposed_rotated_matrix = rotated_matrix.transpose()
+    v1,v2,v3,v4 = transposed_rotated_matrix
+    return v1,v2,v3,v4
 
 if __name__ == "__main__":
-    x,y = (5,5)
-    grid = get_grid((x,y))
+    size = os.get_terminal_size()
+    x = int(size.columns/10)
+    y = size.lines
+    grid = get_grid((x,x))
 
     vertex1 = np.array([0,0]) # origin co-ordinate
-    vertex2 = np.array([0,y-1]) # top left co-ordinate
-    vertex3 = np.array([x-1,y-1]) # top right component
+    vertex2 = np.array([0,x-1]) # top left co-ordinate
+    vertex3 = np.array([x-1,x-1]) # top right component
     vertex4 = np.array([x-1,0]) # bottom right co-ordinate
 
 
@@ -178,6 +199,8 @@ if __name__ == "__main__":
     grid = plot_line(vertex4,vertex1,grid)
 
     # display_grid(translate_grid(grid))
-    display_grid(translate_grid(grid))
 
-    
+    # print(rotate_square(np.pi,vertex1,vertex2,vertex3,vertex4))
+
+    vector_list = [vertex1,vertex2,vertex3,vertex4]
+    print(rotate_square(np.pi,*vector_list))
