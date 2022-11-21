@@ -127,3 +127,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+rotatingcube.py
+.DS_Store
