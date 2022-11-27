@@ -190,11 +190,6 @@ class rotating_sqaure:
         self.display_grid()
 
 if __name__ == "__main__":
-    square = rotating_sqaure(8, 1, "#")
-    v1,v2,v3,v4 = square.vertices
-    print(square.vertices)
-    square.plot_line(v1, v2)
-    square.plot_line(v2, v3)
-    square.plot_line(v3, v4)
-    square.plot_line(v4, v1)
+    square = rotating_sqaure(8, 1, "*")
+    square.draw_square()
     square.display_grid()
