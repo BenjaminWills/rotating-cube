@@ -1,6 +1,7 @@
 import numpy as np
 
-def rotation_matrix(angle:float) -> np.array:
+
+def rotation_matrix(angle: float) -> np.array:
     """Rotates a vector by a angle radians
 
     Parameters
@@ -15,9 +16,10 @@ def rotation_matrix(angle:float) -> np.array:
     """
     cosine = np.cos(angle)
     sine = np.sin(angle)
-    return np.array([[cosine,sine],[-sine,cosine]])
+    return np.array([[cosine, sine], [-sine, cosine]])
 
-def rotate_point(point:np.array,angle:float) -> np.array:
+
+def rotate_point(point: np.array, angle: float) -> np.array:
     """Rotates a point by some angle
 
     Parameters
@@ -30,4 +32,4 @@ def rotate_point(point:np.array,angle:float) -> np.array:
     np.array
         rotated vector
     """
-    return np.matmul(rotation_matrix(angle),point)
+    return np.matmul(rotation_matrix(angle), point)
