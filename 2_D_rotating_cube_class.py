@@ -28,7 +28,7 @@ class rotating_sqaure:
 
         vertex1 = np.array([first_quater-1, first_quater-1])  # bottom left co-ordinate
         vertex2 = np.array([first_quater-1, third_quater - 1])  # top left co-ordinate
-        vertex3 = np.array([third_quater - 1, third_quater - 1])  # top right component
+        vertex3 = np.array([third_quater - 1, third_quater - 1])  # top right co-ordinate
         vertex4 = np.array([third_quater -1, first_quater - 1])  # bottom right co-ordinate
 
         return [vertex1, vertex2, vertex3, vertex4]
@@ -119,6 +119,9 @@ class rotating_sqaure:
         # eq of line: y = mx + c, y-y_1 = m(x-x_1)
         x_0, y_0 = start
         x_1, y_1 = end
+
+        start = min(x_0,x_1)
+        end = max(x_0,x_1)
         try:
             if y_0 == y_1:  # the case of a horizontal line
                 self.grid[:][y_0] = 1
@@ -134,7 +137,7 @@ class rotating_sqaure:
 
             gradient = (y_1 - y_0) / (x_1 - x_0)
             line = lambda x: gradient * (x - x_0) + y_0
-            for i in range(x):
+            for i in range(start,end+1):
                 line_output = int(line(i))
                 self.grid[i][line_output] = 1.0
             return True
