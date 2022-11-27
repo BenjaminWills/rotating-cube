@@ -120,8 +120,6 @@ class rotating_sqaure:
         x_0, y_0 = start
         x_1, y_1 = end
 
-        start = min(x_0,x_1)
-        end = max(x_0,x_1)
         try:
             if y_0 == y_1:  # the case of a horizontal line
                 self.grid[:][y_0] = 1
@@ -131,6 +129,9 @@ class rotating_sqaure:
                     self.grid[i][x_0] = 1
                 return True
 
+            # Finding start and end points to plot for
+            start = min(x_0,x_1)
+            end = max(x_0,x_1)
             # scale start and end points to be within the unit box
             x_0, x_1 = x_0 * dx, x_1 * dx
             y_0, y_1 = y_0 * dy, y_1 * dy
@@ -189,11 +190,11 @@ class rotating_sqaure:
         self.display_grid()
 
 if __name__ == "__main__":
-    square = rotating_sqaure(3, 1, "#")
+    square = rotating_sqaure(8, 1, "#")
     v1,v2,v3,v4 = square.vertices
     print(square.vertices)
-    # square.plot_line(v1, v2)
+    square.plot_line(v1, v2)
     square.plot_line(v2, v3)
-    # square.plot_line(v3, v4)
+    square.plot_line(v3, v4)
     square.plot_line(v4, v1)
     square.display_grid()
