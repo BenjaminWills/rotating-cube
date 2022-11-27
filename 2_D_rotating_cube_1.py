@@ -26,10 +26,10 @@ class rotating_sqaure:
         first_quater = side // 4
         third_quater = (3 * side) // 4
 
-        vertex1 = np.array([first_quater, first_quater])  # origin co-ordinate
-        vertex2 = np.array([0, first_quater - 1])  # top left co-ordinate
+        vertex1 = np.array([first_quater-1, first_quater-1])  # bottom left co-ordinate
+        vertex2 = np.array([first_quater-1, third_quater - 1])  # top left co-ordinate
         vertex3 = np.array([third_quater - 1, third_quater - 1])  # top right component
-        vertex4 = np.array([third_quater - 1, 0])  # bottom right co-ordinate
+        vertex4 = np.array([third_quater -1, first_quater - 1])  # bottom right co-ordinate
 
         return [vertex1, vertex2, vertex3, vertex4]
 
@@ -140,12 +140,21 @@ class rotating_sqaure:
             return True
         except:
             return False
-        
+
     def draw_square(self):
-        self.vertices
+        v1,v2,v3,v4 = self.vertices
+        try:
+            self.plot_line(v1, v2)
+            self.plot_line(v2, v3)
+            self.plot_line(v3, v4)
+            self.plot_line(v4, v1)
+            return True
+        except:
+            return False
+
 
     def centralise_point(self, point: np.array) -> np.array:
-        return point + np.array([self.center]*2)
+        return point + np.array([self.center] * 2)
 
     def centralise_points(self, *points) -> List[np.array]:
         return [self.centralise_point(point) for point in points]
@@ -172,7 +181,16 @@ class rotating_sqaure:
         transposed_rotated_matrix = rotated_matrix.transpose().astype(int)
         return self.centralise_points(*transposed_rotated_matrix)
 
+    def show_square(self):
+        self.draw_square()
+        self.display_grid()
 
 if __name__ == "__main__":
     square = rotating_sqaure(3, 1, "#")
-
+    v1,v2,v3,v4 = square.vertices
+    print(square.vertices)
+    # square.plot_line(v1, v2)
+    square.plot_line(v2, v3)
+    # square.plot_line(v3, v4)
+    square.plot_line(v4, v1)
+    square.display_grid()
