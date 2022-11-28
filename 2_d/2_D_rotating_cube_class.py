@@ -195,6 +195,6 @@ class rotating_sqaure:
         self.display_grid()
 
 if __name__ == "__main__":
-    square = rotating_sqaure(8, 1, "*")
+    square = rotating_sqaure(20, 1, "*")
     square.draw_square()
     square.display_grid()
