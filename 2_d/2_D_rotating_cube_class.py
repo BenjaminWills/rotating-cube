@@ -122,10 +122,15 @@ class rotating_sqaure:
 
         try:
             if y_0 == y_1:  # the case of a horizontal line
-                self.grid[:][y_0] = 1
+                start = min(x_0,x_1)
+                end = max(x_0,x_1)
+                for i in range(start,end+1):
+                    self.grid[y_0][i] = 1
                 return True
             if x_0 == x_1:  # The case of a vertical line
-                for i in range(y):
+                start = min(y_0,y_1)
+                end = max(y_0,y_1)
+                for i in range(start,end+1):
                     self.grid[i][x_0] = 1
                 return True
 
