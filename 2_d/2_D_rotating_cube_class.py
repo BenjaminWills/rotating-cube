@@ -161,12 +161,24 @@ class rotating_sqaure:
         except:
             return False
 
+    def rotate_about_centre(self,angle:float,point:np.array) -> np.array:
+        """Rotating a point about any centre.
 
-    def centralise_point(self, point: np.array) -> np.array:
-        return point + np.array([self.center] * 2)
+        Parameters
+        ----------
+        angle : float
+            In radians
+        point : np.array
 
-    def centralise_points(self, *points) -> List[np.array]:
-        return [self.centralise_point(point) for point in points]
+        Returns
+        -------
+        np.array
+            rotated point
+        """
+        center = np.array([self.center] * 2)
+        translated_point = point - center
+        rotated_translated_point = rotate_point(translated_point,angle)
+        return rotated_translated_point + center
 
     def rotate_square(
         self,
@@ -185,16 +197,25 @@ class rotating_sqaure:
         list
             a list of the rotated vectors cast as integers
         """
-        vector_matrix = np.stack(self.vertices, axis=1)
-        rotated_matrix = rotate_point(vector_matrix, angle)
-        transposed_rotated_matrix = rotated_matrix.transpose().astype(int)
-        return self.centralise_points(*transposed_rotated_matrix)
+        try:
+            self.vertices = [
+                self.rotate_about_centre(angle,point)
+                for point in self.vertices
+            ]
+            return True
+        except:
+            return False
+    
+    def show_rotated_square(self,angle:float):
+        self.rotate_square(angle)
+        self.display_grid()
+
 
     def show_square(self):
         self.draw_square()
         self.display_grid()
 
 if __name__ == "__main__":
-    square = rotating_sqaure(20, 1, "*")
+    square = rotating_sqaure(8, 1, "*")
     square.draw_square()
     square.display_grid()
