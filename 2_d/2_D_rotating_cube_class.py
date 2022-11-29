@@ -199,7 +199,7 @@ class rotating_sqaure:
         """
         try:
             self.vertices = [
-                self.rotate_about_centre(angle,point)
+                self.rotate_about_centre(angle,point).astype(int)
                 for point in self.vertices
             ]
             return True
