@@ -16,7 +16,7 @@ def rotation_matrix(angle: float) -> np.array:
     """
     cosine = np.cos(angle)
     sine = np.sin(angle)
-    return np.array([[cosine, sine], [-sine, cosine]])
+    return np.array([[cosine, -sine], [sine, cosine]])
 
 
 def rotate_point(point: np.array, angle: float) -> np.array:
