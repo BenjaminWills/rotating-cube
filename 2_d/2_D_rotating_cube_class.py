@@ -217,5 +217,7 @@ class rotating_sqaure:
 
 if __name__ == "__main__":
     square = rotating_sqaure(8, 1, "*")
-    square.draw_square()
-    square.display_grid()
+    print(square.vertices)
+    square.rotate_square(np.pi/4)
+    print(square.vertices)
+    print(square.center)
